@@ -1,4 +1,4 @@
-package visitor
+package file
 
 import (
 	"go/ast"
