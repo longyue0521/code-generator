@@ -1,4 +1,4 @@
-package anthor
+package template
 
 import (
 	"bytes"

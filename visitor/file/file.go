@@ -71,9 +71,17 @@ func (t *typeVisitor) Visit(node ast.Node) (w ast.Visitor) {
 		return nil
 	}
 	switch n := node.(type) {
-	case *ast.Field:
-		if n.Doc != nil {
-			t.fields = append(t.fields, annotation.ASTField{Group: annotation.FromCommentGroup[*ast.Field](n, n.Doc)})
+	case *ast.FieldList:
+		for _, field := range n.List {
+
+			if field.Doc == nil {
+				switch field.Type.(type) {
+				case *ast.FuncType:
+					t.fields = append(t.fields, annotation.ASTField{Group: annotation.FromCommentGroup[*ast.Field](field, field.Doc)})
+				}
+				continue
+			}
+			t.fields = append(t.fields, annotation.ASTField{Group: annotation.FromCommentGroup[*ast.Field](field, field.Doc)})
 		}
 	}
 	return t

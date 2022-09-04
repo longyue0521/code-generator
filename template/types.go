@@ -1,4 +1,4 @@
-package anthor
+package template
 
 type ServiceMethod struct {
 	Name         string

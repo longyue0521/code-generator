@@ -15,6 +15,15 @@ type Group[N ast.Node] struct {
 	List []Single
 }
 
+func (g Group[N]) Get(key string) (Single, bool) {
+	for _, an := range g.List {
+		if an.Key == key {
+			return an, true
+		}
+	}
+	return Single{}, false
+}
+
 type ASTField struct {
 	Group[*ast.Field]
 }

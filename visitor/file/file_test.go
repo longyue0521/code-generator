@@ -184,6 +184,7 @@ type (
 						Fields: []annotation.ASTField{
 							{
 								Group: annotation.Group[*ast.Field]{
+									Node: &ast.Field{},
 									List: []annotation.Single{
 										{
 											Key:   "parameter",
@@ -202,6 +203,7 @@ type (
 							},
 							{
 								Group: annotation.Group[*ast.Field]{
+									Node: &ast.Field{},
 									List: []annotation.Single{
 										{
 											Key:   "return",
@@ -234,6 +236,8 @@ type (
 			wantType := tc.want.Types[i]
 			assertAnnotations(t, wantType.Group, typ.Group)
 			if len(wantType.Fields) != len(typ.Fields) {
+				t.Logf("want %#v, %T\n", wantType.Fields, wantType.Fields)
+				t.Logf("gott %#v, %T\n", typ.Fields, typ.Fields)
 				t.Fatal()
 			}
 			for j, fd := range typ.Fields {

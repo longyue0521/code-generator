@@ -1,4 +1,4 @@
-package anthor
+package template
 
 import (
 	"io"
@@ -15,14 +15,14 @@ import (
 	"io/ioutil"
 	"net/http"
 )
-
-type {{.GenName}} struct {
+{{$name := .GenName}}
+type {{$name}} struct {
     Endpoint string
     Path string
 	Client http.Client
 }
 {{ range $method := .Methods }}
-func (s *UserServiceGen) {{$method.Name}}(ctx context.Context, req *{{$method.ReqTypeName}}) (*{{$method.RespTypeName}}, error) {
+func (s *{{$name}}) {{$method.Name}}(ctx context.Context, req *{{$method.ReqTypeName}}) (*{{$method.RespTypeName}}, error) {
 	url := s.Endpoint + s.Path + "{{$method.Path}}"
 	bs, err := json.Marshal(req)
 	if err != nil {
